@@ -1,0 +1,439 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex">
+<meta name="referrer" content="no-referrer">
+<style>html{color-scheme:light dark}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Балтийский барометр · зеркало</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bitter:ital,wght@0,500;0,700;1,500&family=Golos+Text:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+
+<style>
+:root{
+  --granite:#20242b;
+  --ink:#1a1e25;
+  --ink-soft:#4d545f;
+  --ink-faint:#79818e;
+  --ground:#eceef1;
+  --surface:#f7f8fa;
+  --surface-2:#e3e6eb;
+  --line:#cfd4dc;
+  --line-soft:#dfe3e9;
+  --brass:#9a6f18;
+  --brass-soft:#f0e3c6;
+  --alarm:#a83329;
+  --alarm-soft:#f4dcd9;
+  --clear:#2c6d4c;
+  --clear-soft:#d9e9df;
+  --watch:#8a6410;
+  --watch-soft:#f5e7c8;
+  --shadow:0 1px 2px rgba(26,30,37,.07), 0 8px 24px -16px rgba(26,30,37,.25);
+
+  --f-display:"Bitter", Georgia, "Times New Roman", serif;
+  --f-body:"Golos Text", "Helvetica Neue", Arial, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ink:#e7e9ee; --ink-soft:#a7aeba; --ink-faint:#79818e;
+    --ground:#111419; --surface:#181c22; --surface-2:#212630;
+    --line:#2e3540; --line-soft:#252b34;
+    --brass:#d3a44e; --brass-soft:#3a2f16;
+    --alarm:#e2776a; --alarm-soft:#3d1f1b;
+    --clear:#6fbf93; --clear-soft:#16301f;
+    --watch:#d6ab55; --watch-soft:#332715;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+  }
+}
+:root[data-theme="dark"]{
+  --ink:#e7e9ee; --ink-soft:#a7aeba; --ink-faint:#79818e;
+  --ground:#111419; --surface:#181c22; --surface-2:#212630;
+  --line:#2e3540; --line-soft:#252b34;
+  --brass:#d3a44e; --brass-soft:#3a2f16;
+  --alarm:#e2776a; --alarm-soft:#3d1f1b;
+  --clear:#6fbf93; --clear-soft:#16301f;
+  --watch:#d6ab55; --watch-soft:#332715;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 10px 28px -18px rgba(0,0,0,.8);
+}
+
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font-family:var(--f-body);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding:32px 20px 80px}
+a{color:inherit}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--brass);outline-offset:2px;border-radius:3px}
+
+.mast{display:flex;flex-wrap:wrap;align-items:flex-end;gap:16px 24px;padding-bottom:18px;border-bottom:2px solid var(--ink)}
+.mast h1{font-family:var(--f-display);font-weight:700;font-size:34px;line-height:1.05;margin:0;letter-spacing:-.015em;text-wrap:balance}
+.mast .sub{font-size:13px;color:var(--ink-soft);max-width:44ch;margin:6px 0 0}
+.mast .spacer{flex:1 1 40px}
+.stamp{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);text-align:right;line-height:1.7}
+.stamp b{display:block;color:var(--ink);font-weight:600;font-size:13px;letter-spacing:.02em;text-transform:none}
+
+.strip{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center;margin-top:22px;padding:16px 18px;border-radius:2px;background:var(--surface);border:1px solid var(--line);border-left:5px solid var(--level-color,var(--clear));box-shadow:var(--shadow)}
+.strip .level{font-family:var(--f-display);font-size:22px;font-weight:700;color:var(--level-color,var(--clear));white-space:nowrap}
+.strip .level small{display:block;font-family:var(--f-mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);font-weight:400;margin-bottom:2px}
+.strip .headline{font-size:15px;color:var(--ink);margin:0;text-wrap:pretty}
+
+section{margin-top:44px}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+.sec-head h2{font-family:var(--f-display);font-size:20px;font-weight:700;margin:0;letter-spacing:-.01em}
+.sec-head .count{font-family:var(--f-mono);font-size:11px;color:var(--ink-faint);letter-spacing:.06em}
+.sec-note{font-size:13px;color:var(--ink-soft);margin:0 0 18px;max-width:62ch}
+
+.probs{display:flex;flex-direction:column;gap:1px;background:var(--line-soft);border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.prob{display:grid;grid-template-columns:1fr 92px 64px 52px;align-items:center;gap:14px;background:var(--surface);padding:13px 16px}
+.prob .name{font-size:14px;line-height:1.35;text-wrap:pretty}
+.prob .name small{display:block;color:var(--ink-faint);font-size:11.5px;font-family:var(--f-mono);letter-spacing:.03em;margin-top:3px}
+.bar{height:7px;background:var(--surface-2);border-radius:1px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--brass)}
+.bar.hi i{background:var(--alarm)}
+.bar.lo i{background:var(--clear)}
+.pct{font-family:var(--f-mono);font-size:15px;font-weight:600;text-align:right;font-variant-numeric:tabular-nums}
+.trend{font-family:var(--f-mono);font-size:11px;text-align:right;letter-spacing:.04em}
+.trend.up{color:var(--alarm)}
+.trend.down{color:var(--clear)}
+.trend.same{color:var(--ink-faint)}
+.spark{display:block}
+
+.flag-group{margin-top:20px}
+.flag-group > h3{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);margin:0 0 8px;font-weight:400}
+.flags{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}
+.flag{display:grid;grid-template-columns:14px 1fr;gap:10px;align-items:start;padding:11px 13px;border:1px solid var(--line-soft);border-radius:2px;background:var(--surface)}
+.flag .dot{width:9px;height:9px;border-radius:50%;margin-top:6px;background:var(--ink-faint);opacity:.35}
+.flag .txt{font-size:13.5px;line-height:1.4;text-wrap:pretty}
+.flag .note{display:block;margin-top:5px;font-size:12px;color:var(--ink-soft)}
+.flag.triggered{background:var(--alarm-soft);border-color:var(--alarm)}
+.flag.triggered .dot{background:var(--alarm);opacity:1}
+.flag.triggered .txt{font-weight:600}
+.flag.watch{background:var(--watch-soft);border-color:var(--watch)}
+.flag.watch .dot{background:var(--watch);opacity:1}
+.flag.met{background:var(--clear-soft);border-color:var(--clear)}
+.flag.met .dot{background:var(--clear);opacity:1}
+.flag a{color:var(--ink-soft);text-decoration-thickness:1px;text-underline-offset:2px}
+
+.news{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:1px;background:var(--line-soft);border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.news li{background:var(--surface);padding:13px 16px;display:grid;grid-template-columns:64px 1fr;gap:14px;align-items:baseline}
+.news .tag{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint);padding-top:2px}
+.news li.spb .tag{color:var(--brass);font-weight:600}
+.news li.spb{border-left:3px solid var(--brass);padding-left:13px}
+.news .body{font-size:14px;line-height:1.5;text-wrap:pretty}
+.news .src{display:block;margin-top:4px;font-size:12px}
+.news .src a{color:var(--ink-faint)}
+
+.actions{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:8px}
+.actions li{padding:12px 15px;border:1px solid var(--brass);border-left-width:4px;border-radius:2px;background:var(--surface);font-size:14px}
+.empty{padding:18px;border:1px dashed var(--line);border-radius:2px;color:var(--ink-soft);font-size:14px}
+
+details.arch{border:1px solid var(--line);border-radius:2px;background:var(--surface);margin-bottom:8px}
+details.arch summary{cursor:pointer;padding:12px 16px;display:flex;gap:14px;align-items:center;font-size:14px;list-style:none}
+details.arch summary::-webkit-details-marker{display:none}
+details.arch summary .d{font-family:var(--f-mono);font-size:12px;color:var(--ink-faint);min-width:96px}
+details.arch summary .lv{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border-radius:2px;background:var(--surface-2);color:var(--ink-soft)}
+details.arch summary .lv.alarm{background:var(--alarm-soft);color:var(--alarm)}
+details.arch summary .lv.watch{background:var(--watch-soft);color:var(--watch)}
+details.arch summary .lv.calm{background:var(--clear-soft);color:var(--clear)}
+details.arch summary .h{flex:1;color:var(--ink-soft);font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+details.arch .inner{padding:0 16px 16px;border-top:1px solid var(--line-soft)}
+details.arch .inner ul{margin:12px 0 0;padding-left:18px;font-size:13.5px;color:var(--ink-soft)}
+details.arch .inner li{margin-bottom:6px}
+
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:12.5px;color:var(--ink-faint);line-height:1.7;max-width:70ch}
+footer b{color:var(--ink-soft);font-weight:600}
+
+@media (max-width:640px){
+  .wrap{padding:24px 14px 60px}
+  .mast h1{font-size:27px}
+  .stamp{text-align:left}
+  .prob{grid-template-columns:1fr 56px 44px;gap:10px}
+  .prob .spark-cell{display:none}
+  .news li{grid-template-columns:1fr;gap:4px}
+  .strip{grid-template-columns:1fr;gap:10px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div>
+      <h1>Балтийский барометр</h1>
+      <p class="sub">Еженедельный мониторинг ударов, заявлений и триггеров эскалации. Фокус — Санкт-Петербург и Ленинградская область.</p>
+    </div>
+    <div class="spacer"></div>
+    <div class="stamp">
+      Последняя сводка
+      <b id="stamp-date">—</b>
+      <span id="stamp-period"></span>
+    </div>
+  </header>
+
+  <div class="strip" id="strip">
+    <div class="level" id="level"><small>Уровень</small>—</div>
+    <p class="headline" id="headline"></p>
+  </div>
+
+  <section>
+    <div class="sec-head"><h2>Вероятности</h2><span class="count" id="prob-count"></span></div>
+    <p class="sec-note">Экспертные оценки, а не расчёт. Пересматриваются каждую неделю; стрелка показывает сдвиг относительно прошлой сводки, искра — динамику за всё время наблюдения.</p>
+    <div class="probs" id="probs"></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Красные флаги</h2><span class="count" id="red-count"></span></div>
+    <p class="sec-note">События, каждое из которых означает качественное ухудшение обстановки. Подсвечены — сработавшие или требующие внимания на текущей неделе.</p>
+    <div id="red-flags"></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Зелёные флаги</h2><span class="count" id="green-count"></span></div>
+    <p class="sec-note">Признаки деэскалации. Подсвечены зелёным — выполненные.</p>
+    <div id="green-flags"></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Хроника недели</h2><span class="count" id="news-count"></span></div>
+    <p class="sec-note">Отмеченное латунной полосой относится к Петербургу и области.</p>
+    <ul class="news" id="news"></ul>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Что делать</h2></div>
+    <div id="actions"></div>
+  </section>
+
+  <section>
+    <div class="sec-head"><h2>Архив сводок</h2><span class="count" id="arch-count"></span></div>
+    <div id="archive"></div>
+  </section>
+
+  <footer>
+    <p><b>Как это работает.</b> Каждый понедельник в 10:00 запланированная задача собирает события недели по российским (Фонтанка, Коммерсантъ, Ведомости, Интерфакс) и независимым источникам (Новая газета Европа, Медуза, The Moscow Times, Радио Свобода, Важные истории, Верстка, CIT), сверяет их с каталогом флагов и обновляет эту страницу.</p>
+    <p><b>Об источниках.</b> Российская официальная статистика занижает ущерб, украинская сторона завышает эффект, независимые подсчёты дают минимальную оценку. Расхождения отмечаются в тексте сводки.</p>
+    <p><b>Оговорка.</b> Вероятности — субъективные оценки на основе открытых данных, а не прогноз. Базовая линия установлена 4 сентября 2026 года.</p>
+  </footer>
+</div>
+
+<script id="barometer-data" type="application/json">
+{"reports":[
+{"date":"2026-09-04","period":"28 августа — 4 сентября 2026","overall":"внимание","headline":"Базовая линия. Атаки на агломерацию идут почти еженедельно, цели — порты и НПЗ, а не жилые кварталы. Ключевая развилка недели — визит Уиткоффа и Кушнера в Москву 5–6 сентября.",
+"summary":[
+{"date":"30 авг","spb":true,"text":"Одна из самых массированных атак на Северо-Запад: 62 БПЛА над регионом, возгорание в промзоне Киришей, повреждены несколько жилых домов в Ленобласти. В Пулково объявлен план «Ковёр», задержано около 15 рейсов.","source_title":"Фонтанка","source_url":"https://www.fontanka.ru/2026/08/30/76615099/"},
+{"date":"1 сен","spb":true,"text":"52 БПЛА сбито над Ленобластью, тревога с 02:03 до 06:13. Пожар в портовой зоне Усть-Луги, пострадавших нет.","source_title":"Интерфакс","source_url":"https://www.interfax.ru/russia/1112369"},
+{"date":"1 сен","spb":true,"text":"Путин сообщил, что ночью БПЛА пытались атаковать три НПЗ в Москве и Петербурге; по его словам, атаки отбиты, «уровень защиты совсем другой».","source_title":"Ведомости","source_url":"https://www.vedomosti.ru/politics/articles/2026/09/02/1225505-o-fronte-udarah-peregovorah"},
+{"date":"1 сен","spb":false,"text":"Зеленский предупредил иностранные авиакомпании и страховщиков: российское воздушное пространство «де-факто закрывается», отдельно названы Москва и Петербург. Оговорка — «Украина не угрожает гражданской авиации как таковой».","source_title":"Важные истории","source_url":"https://istories.media/news/2026/09/01/zelenskii-predupredil-aviakompanii-ob-opasnosti-poletov-v-rossiyu/"},
+{"date":"1 сен","spb":false,"text":"Путин назвал слухи о новой волне мобилизации «чушью собачьей»; заявил, что переговорный процесс «в известной степени заморожен», а предложения Киева носят «экзотический характер». Поручил массированные удары по энергетике Украины в ответ на атаки по НПЗ.","source_title":"Ведомости","source_url":"https://www.vedomosti.ru/politics/articles/2026/09/02/1225505-o-fronte-udarah-peregovorah"},
+{"date":"2 сен","spb":false,"text":"«Новая газета Европа»: лето 2026 стало рекордным по числу погибших мирных жителей в России — 341 за лето, 151 только в августе, 560 с начала года. Впервые 26% августовских погибших пришлись на регионы за пределами прифронтовых.","source_title":"Новая газета Европа","source_url":"https://novayagazeta.eu/articles/2026/09/02/leto-2026-goda-stalo-rekordnym-po-chislu-pogibshikh-mirnykh-zhitelei-v-rossii"},
+{"date":"3 сен","spb":false,"text":"«Ведомости» публикуют колонку «Почему частичная мобилизация сейчас не нужна» — за две с половиной недели до выборов в Госдуму 18–20 сентября.","source_title":"Ведомости","source_url":"https://www.vedomosti.ru/opinion/columns/2026/09/03/1225776-pochemu-chastichnaya-mobilizatsiya-seichas-ne-nuzhna"},
+{"date":"4 сен","spb":false,"text":"За ночь над регионами России сбито 490 БПЛА. Горит нефтебаза в Сочи, губернатор предупредил о возможных проблемах с топливом.","source_title":"Фонтанка","source_url":"https://www.fontanka.ru/2026/09/04/76623877/"},
+{"date":"4 сен","spb":true,"text":"Ещё один терминал петербургского порта — «Балтик Балкер Терминал» — закупает два модульных укрытия от БПЛА на 20 человек каждое. В июле порт «Морской фасад» установил восемь железобетонных укрытий за 5 млн рублей.","source_title":"Фонтанка","source_url":"https://www.fontanka.ru/2026/09/04/76625065/"},
+{"date":"4 сен","spb":false,"text":"ТАСС: спецпосланники Трампа Уиткофф и Кушнер посетят Москву, затем Киев 5–6 сентября, чтобы представить условия завершения войны.","source_title":"The Moscow Times","source_url":"https://ru.themoscowtimes.com/2026/09/04/uitkoff-i-kushner-posetyat-moskvu-i-kiev-5-6-sentyabrya-tass-a205302"}
+],
+"red_flags":[
+{"id":"r1","status":"clear","note":"Украина продолжает бить по НПЗ, портам и складам; ударов по городской электрогенерации не заявлено"},
+{"id":"r2","status":"clear","note":"За 2026 год в самом Петербурге погибших нет, пострадавших порядка 8–10"},
+{"id":"r3","status":"clear","note":"Поражения только на юге и юго-западе: Шушары, Московское шоссе, Кировский и Красносельский районы, Кронштадт"},
+{"id":"r4","status":"watch","note":"Пулково ограничивало работу 30 августа (план «Ковёр», ~15 рейсов); Air Tanzania приостанавливала рейсы в Россию из-за «проблем с безопасностью»"},
+{"id":"r5","status":"watch","note":"Переговоры, по словам Путина, «заморожены»; исход визита Уиткоффа и Кушнера 5–6 сентября решает многое","source_url":"https://ru.themoscowtimes.com/2026/09/04/uitkoff-i-kushner-posetyat-moskvu-i-kiev-5-6-sentyabrya-tass-a205302"},
+{"id":"r6","status":"watch","note":"Рассылаются повестки «для уточнения данных»; фиксируются отдельные случаи вклейки мобилизационных предписаний, массовой рассылки нет","source_url":"https://www.svoboda.org/a/risk-perestal-bytj-teoreticheskim-zhdatj-li-novoy-mobilizatsii-v-rossii/33794105.html"},
+{"id":"r7","status":"clear","note":"Правозащитники фиксируют 5–7 случаев запрета на выезд в месяц — это базовая линия"},
+{"id":"r8","status":"clear","note":"Изменений по броне не заявлено"},
+{"id":"r9","status":"clear","note":"Публичных ограничений на выезд призывного возраста не вводилось"},
+{"id":"r10","status":"clear","note":"Отрицания продолжаются: Путин 1 сентября, Песков 25 августа, Медведев 28 августа"},
+{"id":"r11","status":"clear","note":"Система уровней от 19 октября 2022 не менялась; Петербург — «базовая готовность»"},
+{"id":"r12","status":"triggered","note":"Подписан указ о защите объектов критической инфраструктуры: объединение усилий администраций, правоохранителей и Минобороны. Национализации не подразумевает","source_url":"https://www.vedomosti.ru/politics/articles/2026/09/02/1225505-o-fronte-udarah-peregovorah"},
+{"id":"r13","status":"clear","note":"Ограничений на передвижение между субъектами нет"}
+],
+"green_flags":[
+{"id":"g1","status":"watch","note":"Переговорный трек жив, но заморожен; визит спецпосланников США 5–6 сентября — ближайшая проверка"},
+{"id":"g2","status":"clear","note":"Наоборот: 490 БПЛА за ночь 4 сентября, 416 — 3 сентября, 494 — 30 августа"},
+{"id":"g3","status":"clear","note":"Тренд обратный: ЕС отменил мультивизы, Литва требует сокращения выдачи, западные страны требуют от Армении ввести визы для россиян"}
+],
+"probabilities":[
+{"id":"p_spb_industrial","label":"Удары по промышленно-логистическим объектам в черте СПб","horizon":"до конца 2026","range":"90–95%","value":92,"change":"same"},
+{"id":"p_spb_civinfra","label":"Кампания против городской жизнеобеспечивающей инфраструктуры СПб","horizon":"до конца 2026","range":"5–10%","value":8,"change":"same"},
+{"id":"p_spb_home","label":"Попадание или обломки по жилому дому в Петербурге","horizon":"6 месяцев","range":"35–50%","value":42,"change":"same"},
+{"id":"p_spb_death","label":"Событие с погибшими мирными жителями в самом Петербурге","horizon":"6 месяцев","range":"10–20%","value":15,"change":"same"},
+{"id":"p_mob_full","label":"Всеобщая мобилизация","horizon":"до конца 2026","range":"3–5%","value":4,"change":"same"},
+{"id":"p_mob_partial","label":"Новая объявленная частичная волна мобилизации","horizon":"до конца 2026","range":"15–25%","value":20,"change":"same"},
+{"id":"p_martial","label":"Военное положение на всей территории РФ","horizon":"до конца 2026","range":"3–5%","value":4,"change":"same"}
+],
+"actions":[
+"Проверить статус в реестре повесток для военнообязанных членов семьи.",
+"Проверить сроки загранпаспортов; при остатке меньше полутора лет начать замену.",
+"Подать на шенген, пока выдают: Испания, Франция и Италия остаются самыми стабильными. Виза — это опцион, а не обязательство."
+]}
+]}
+</script>
+
+<script>
+const RED_FLAGS = [
+  {id:"r1",  g:"Эскалация ударов",  t:"Заявления Украины об ударах по электрогенерации российских городов — смена доктрины"},
+  {id:"r2",  g:"Эскалация ударов",  t:"Первые погибшие мирные жители непосредственно в Петербурге"},
+  {id:"r3",  g:"Эскалация ударов",  t:"Удары по северным или центральным жилым районам города"},
+  {id:"r4",  g:"Эскалация ударов",  t:"Пулково остановлено на сутки и дольше; уход последних иностранных перевозчиков"},
+  {id:"r5",  g:"Мобилизация",       t:"Провал переговорного трека, уход США из процесса"},
+  {id:"r6",  g:"Мобилизация",       t:"Массовая рассылка мобилизационных предписаний, а не повесток «для уточнения данных»"},
+  {id:"r7",  g:"Мобилизация",       t:"Резкий рост запретов на выезд (базовая линия — 5–7 случаев в месяц)"},
+  {id:"r8",  g:"Мобилизация",       t:"Отмена или сокращение брони для отраслей"},
+  {id:"r9",  g:"Мобилизация",       t:"Публично объявленные ограничения на выезд мужчин призывного возраста"},
+  {id:"r10", g:"Мобилизация",       t:"Внезапное прекращение публичных отрицаний мобилизации первыми лицами"},
+  {id:"r11", g:"Правовой режим",    t:"Расширение «среднего уровня реагирования» на новые регионы"},
+  {id:"r12", g:"Правовой режим",    t:"Новые указы о полномочиях военных в «мирных» регионах"},
+  {id:"r13", g:"Правовой режим",    t:"Ограничения на передвижение между субъектами федерации"}
+];
+const GREEN_FLAGS = [
+  {id:"g1", t:"Продвижение в переговорах, перемирие или мораторий на удары по энергетике"},
+  {id:"g2", t:"Устойчивое снижение массированных атак ниже 100 БПЛА за ночь"},
+  {id:"g3", t:"Смягчение визовой или выездной политики"}
+];
+const RED_ORDER = ["Эскалация ударов","Мобилизация","Правовой режим"];
+const LEVELS = {
+  "спокойно":{color:"var(--clear)", cls:"calm"},
+  "внимание":{color:"var(--watch)", cls:"watch"},
+  "тревога":{color:"var(--alarm)", cls:"alarm"}
+};
+
+const $ = s => document.querySelector(s);
+const esc = s => String(s == null ? "" : s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+const safeUrl = u => (typeof u === "string" && /^https?:\/\//i.test(u)) ? u : null;
+
+function sparkline(values){
+  if (!values || values.length < 2) return "";
+  const w = 74, h = 20, pad = 2;
+  const min = Math.min(...values), max = Math.max(...values);
+  const span = (max - min) || 1;
+  const pts = values.map((v,i) => {
+    const x = pad + (i * (w - pad*2)) / (values.length - 1);
+    const y = h - pad - ((v - min) / span) * (h - pad*2);
+    return [x, y];
+  });
+  const d = pts.map((p,i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
+  const last = pts[pts.length - 1];
+  return '<svg class="spark" width="' + w + '" height="' + h + '" viewBox="0 0 ' + w + ' ' + h + '" aria-hidden="true">' +
+    '<path d="' + d + '" fill="none" stroke="var(--ink-faint)" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '<circle cx="' + last[0].toFixed(1) + '" cy="' + last[1].toFixed(1) + '" r="2.2" fill="var(--brass)"/></svg>';
+}
+
+function renderProbs(latest, history){
+  const list = Array.isArray(latest.probabilities) ? latest.probabilities : [];
+  $("#prob-count").textContent = list.length ? list.length + " показателей" : "";
+  if (!list.length){ $("#probs").innerHTML = '<div class="empty">Оценки появятся с первой сводкой.</div>'; return; }
+  $("#probs").innerHTML = list.map(p => {
+    const v = Number(p.value);
+    const val = isFinite(v) ? Math.max(0, Math.min(100, v)) : 0;
+    const series = history.map(r => (Array.isArray(r.probabilities) ? r.probabilities.find(x => x.id === p.id) : null))
+      .filter(Boolean).map(x => Number(x.value)).filter(n => isFinite(n));
+    const tr = p.change === "up" ? {c:"up", s:"▲"} : p.change === "down" ? {c:"down", s:"▼"} : {c:"same", s:"—"};
+    const barCls = val >= 60 ? "bar hi" : val <= 15 ? "bar lo" : "bar";
+    return '<div class="prob"><div class="name">' + esc(p.label) +
+      (p.range ? '<small>' + esc(p.range) + (p.horizon ? " · " + esc(p.horizon) : "") + '</small>'
+               : (p.horizon ? '<small>' + esc(p.horizon) + '</small>' : '')) +
+      '</div><div class="spark-cell">' +
+      (series.length > 1 ? sparkline(series) : '<div class="' + barCls + '"><i style="width:' + val + '%"></i></div>') +
+      '</div><div class="pct">' + val + '%</div><div class="trend ' + tr.c + '">' + tr.s + '</div></div>';
+  }).join("");
+}
+
+function flagCard(def, st){
+  const status = st && st.status ? st.status : "clear";
+  const cls = status === "triggered" ? "triggered" : status === "watch" ? "watch" : status === "met" ? "met" : "";
+  const url = st ? safeUrl(st.source_url) : null;
+  const note = st && st.note
+    ? '<span class="note">' + esc(st.note) + (url ? ' · <a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">источник</a>' : '') + '</span>' : "";
+  return '<div class="flag ' + cls + '"><span class="dot"></span><span class="txt">' + esc(def.t) + note + '</span></div>';
+}
+
+function renderFlags(latest){
+  const rs = {}; (latest.red_flags || []).forEach(f => { if (f && f.id) rs[f.id] = f; });
+  const gs = {}; (latest.green_flags || []).forEach(f => { if (f && f.id) gs[f.id] = f; });
+  const fired = RED_FLAGS.filter(f => rs[f.id] && rs[f.id].status === "triggered").length;
+  const watch = RED_FLAGS.filter(f => rs[f.id] && rs[f.id].status === "watch").length;
+  $("#red-count").textContent = fired ? fired + " сработало" + (watch ? ", " + watch + " под наблюдением" : "")
+                                      : (watch ? watch + " под наблюдением" : "ничего не сработало");
+  $("#red-flags").innerHTML = RED_ORDER.map(g => {
+    const items = RED_FLAGS.filter(f => f.g === g);
+    if (!items.length) return "";
+    return '<div class="flag-group"><h3>' + esc(g) + '</h3><div class="flags">' + items.map(f => flagCard(f, rs[f.id])).join("") + '</div></div>';
+  }).join("");
+  const met = GREEN_FLAGS.filter(f => gs[f.id] && gs[f.id].status === "met").length;
+  $("#green-count").textContent = met ? met + " выполнено" : "ни один не выполнен";
+  $("#green-flags").innerHTML = '<div class="flags">' + GREEN_FLAGS.map(f => flagCard(f, gs[f.id])).join("") + '</div>';
+}
+
+function renderNews(latest){
+  const items = Array.isArray(latest.summary) ? latest.summary : [];
+  $("#news-count").textContent = items.length ? items.length + " сюжетов" : "";
+  $("#news").innerHTML = items.length ? items.map(n => {
+    const url = safeUrl(n.source_url);
+    return '<li class="' + (n.spb ? "spb" : "") + '"><span class="tag">' + esc(n.date || (n.spb ? "СПб" : "РФ")) + '</span>' +
+      '<span class="body">' + esc(n.text) +
+      (url ? '<span class="src"><a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">' + esc(n.source_title || "источник") + '</a></span>' : '') +
+      '</span></li>';
+  }).join("") : '<li><span class="tag">—</span><span class="body">За неделю значимых событий не зафиксировано.</span></li>';
+}
+
+function renderActions(latest){
+  const a = Array.isArray(latest.actions) ? latest.actions.filter(Boolean) : [];
+  $("#actions").innerHTML = a.length
+    ? '<ul class="actions">' + a.map(x => '<li>' + esc(x) + '</li>').join("") + '</ul>'
+    : '<div class="empty">Действий на этой неделе не требуется.</div>';
+}
+
+function renderArchive(reports){
+  const rest = reports.slice(1);
+  $("#arch-count").textContent = rest.length ? rest.length + " недель" : "";
+  if (!rest.length){ $("#archive").innerHTML = '<div class="empty">Архив наполнится со второй сводки.</div>'; return; }
+  $("#archive").innerHTML = rest.map(r => {
+    const lv = LEVELS[r.overall] || LEVELS["спокойно"];
+    const bullets = (Array.isArray(r.summary) ? r.summary : []).slice(0, 6).map(n => {
+      const url = safeUrl(n.source_url);
+      return '<li>' + esc(n.text) + (url ? ' <a href="' + esc(url) + '" target="_blank" rel="noopener noreferrer">↗</a>' : '') + '</li>';
+    }).join("");
+    return '<details class="arch"><summary><span class="d">' + esc(r.period || r.date) + '</span>' +
+      '<span class="lv ' + lv.cls + '">' + esc(r.overall || "—") + '</span>' +
+      '<span class="h">' + esc(r.headline || "") + '</span></summary>' +
+      '<div class="inner"><ul>' + (bullets || '<li>Без записей.</li>') + '</ul></div></details>';
+  }).join("");
+}
+
+(function(){
+  let reports = [];
+  try {
+    const raw = document.getElementById("barometer-data").textContent;
+    const parsed = JSON.parse(raw);
+    if (parsed && Array.isArray(parsed.reports)) reports = parsed.reports;
+  } catch (e) { reports = []; }
+
+  reports = reports.slice().sort((a,b) => String(b.date || "").localeCompare(String(a.date || "")));
+
+  if (!reports.length){
+    $("#stamp-date").textContent = "сводок пока нет";
+    $("#headline").textContent = "Первая сводка появится здесь в ближайший понедельник в 10:00.";
+    $("#probs").innerHTML = '<div class="empty">Оценки появятся с первой сводкой.</div>';
+    renderFlags({}); renderNews({}); renderActions({}); renderArchive([]);
+    return;
+  }
+
+  const latest = reports[0];
+  const lv = LEVELS[latest.overall] || LEVELS["спокойно"];
+  $("#strip").style.setProperty("--level-color", lv.color);
+  $("#level").innerHTML = '<small>Уровень</small>' + esc(latest.overall || "спокойно");
+  $("#headline").textContent = latest.headline || "";
+  $("#stamp-date").textContent = latest.date || "";
+  $("#stamp-period").textContent = latest.period ? "период " + latest.period : "";
+
+  renderProbs(latest, reports.slice().reverse());
+  renderFlags(latest);
+  renderNews(latest);
+  renderActions(latest);
+  renderArchive(reports);
+})();
+</script>
+
+</body>
+</html>
